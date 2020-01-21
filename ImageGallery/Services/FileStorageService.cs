@@ -1,17 +1,19 @@
 ﻿using CoreImageGallery.Data;
 using CoreImageGallery.Extensions;
+using CoreImageGallery.Interfaces;
+using ImageGallery.Model;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
-using ImageGallery.Model;
 
 namespace CoreImageGallery.Services
 {
     public class FileStorageService : IStorageService
     {
         private const string ImageFolderUri = "userImages";
-        private const string ImageFolder = "wwwroot\\" + ImageFolderUri;
-        private ApplicationDbContext _dbContext;
+        private readonly string ImageFolder = $"wwwroot\\{ImageFolderUri}";
+        private readonly ApplicationDbContext _dbContext;
 
         public FileStorageService(ApplicationDbContext dbContext)
         {
@@ -20,10 +22,9 @@ namespace CoreImageGallery.Services
 
         public async Task AddImageAsync(Stream stream, string originalName, string userName)
         {
-            UploadUtilities.GetImageProperties(originalName, userName, out string uploadId, out string fileName, out string userId);
-
-            string localPath = Path.Combine(ImageFolder, fileName);
-            string imageUri = ImageFolderUri + "/" + fileName;
+            var imageProps = UploadUtilities.GetImageProperties(originalName, userName);
+            var localPath = Path.Combine(ImageFolder, imageProps.FileName);
+            var imageUri = $"{ImageFolderUri}/{imageProps.FileName}";
 
             using (var fileStream = File.Create(localPath))
             {
@@ -31,23 +32,19 @@ namespace CoreImageGallery.Services
                 await stream.CopyToAsync(fileStream);
             }
 
-            await UploadUtilities.RecordImageUploadedAsync(_dbContext, uploadId, fileName, imageUri, userId);
+            await UploadUtilities.RecordImageUploadedAsync(_dbContext, imageProps.UploadId, imageProps.FileName, imageUri, imageProps.UserHash);
         }
 
         public async Task<IEnumerable<UploadedImage>> GetImagesAsync()
         {
-            var imageList = new List<UploadedImage>();
             var files = await Task.Run(() => Directory.EnumerateFiles(ImageFolder));
-
-            foreach(var file in files)
+            var imageList = files.Select(file =>
             {
-                var image = new UploadedImage
+                return new UploadedImage
                 {
-                    ImagePath = ImageFolderUri + "/" + Path.GetFileName(file)
+                    ImagePath = $"{ImageFolderUri}/{Path.GetFileName(file)}"
                 };
-
-                imageList.Add(image);
-            }
+            }).ToList();
 
             return imageList;
         }

@@ -1,4 +1,5 @@
 ﻿using CoreImageGallery.Data;
+using CoreImageGallery.Interfaces;
 using CoreImageGallery.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

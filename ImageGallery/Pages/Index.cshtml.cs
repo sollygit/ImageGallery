@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using CoreImageGallery.Services;
+﻿using CoreImageGallery.Interfaces;
 using ImageGallery.Model;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CoreImageGallery.Pages
 {
@@ -16,7 +10,7 @@ namespace CoreImageGallery.Pages
     {
         public IEnumerable<UploadedImage> Images;
 
-        private IStorageService _storageService;
+        private readonly IStorageService _storageService;
 
         public IndexModel(IStorageService storageService)
         {

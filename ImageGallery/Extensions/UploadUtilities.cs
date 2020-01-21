@@ -1,21 +1,22 @@
-﻿using System;
+﻿using CoreImageGallery.Data;
+using ImageGallery.Model;
+using System;
 using System.IO;
 using System.Threading.Tasks;
-using CoreImageGallery.Data;
-using ImageGallery.Model;
 
 namespace CoreImageGallery.Extensions
 {
     public class UploadUtilities
     {
-        private const string ImagePrefix = "img_";
+        public static string ImagePrefix = "img_";
 
-        public static void GetImageProperties(string originalName, string userName, out string uploadId, out string fileName, out string userHash)
+        public static ImageProperties GetImageProperties(string originalName, string userName)
         {
-            uploadId = Guid.NewGuid().ToString();
-            string fileExtension = Path.GetExtension(originalName);
-            fileName = ImagePrefix + uploadId + fileExtension;
-            userHash = userName?.GetHashCode().ToString();
+            var uploadId = Guid.NewGuid().ToString();
+            var fileName = $"{ImagePrefix}{uploadId}{Path.GetExtension(originalName)}";
+            var userHash = userName?.GetHashCode().ToString();
+            
+            return new ImageProperties(uploadId, fileName, userHash);
         }
 
         public static async Task RecordImageUploadedAsync(ApplicationDbContext dbContext, string uploadId, string fileName, string imageUri, string userHash = null)

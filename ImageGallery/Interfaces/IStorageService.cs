@@ -1,10 +1,9 @@
-﻿using System;
+﻿using ImageGallery.Model;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using ImageGallery.Model;
 
-namespace CoreImageGallery.Services
+namespace CoreImageGallery.Interfaces
 {
     public interface IStorageService
     {

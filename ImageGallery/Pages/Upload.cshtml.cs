@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using CoreImageGallery.Services;
+﻿using CoreImageGallery.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoreImageGallery.Pages
 {
     public class UploadModel : PageModel
     {
-        private IStorageService _storageService;
+        private readonly IStorageService _storageService;
 
         public UploadModel(IStorageService storageService)
         {
@@ -21,7 +20,6 @@ namespace CoreImageGallery.Pages
 
         public void OnGet()
         {
-
         }
 
         public async Task<IActionResult> OnPostAsync(IFormFile file)
