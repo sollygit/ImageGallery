@@ -9,5 +9,6 @@ namespace CoreImageGallery.Interfaces
     {
         Task<IEnumerable<UploadedImage>> GetImagesAsync();
         Task AddImageAsync(Stream stream, string fileName, string userName);
+        Task<byte[]> DownloadImageAsync(string host, string id);
     }
 }

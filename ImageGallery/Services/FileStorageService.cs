@@ -5,6 +5,7 @@ using ImageGallery.Model;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace CoreImageGallery.Services
@@ -47,6 +48,23 @@ namespace CoreImageGallery.Services
             }).ToList();
 
             return imageList;
+        }
+
+        public async Task<byte[]> DownloadImageAsync(string host, string id)
+        {
+            var files = await Task.Run(() => Directory.EnumerateFiles(ImageFolder));
+            var filename = files.FirstOrDefault(o => o == $"{ImageFolder}\\{UploadUtilities.ImagePrefix}{id}.png");
+            var ImagePath = $"{host}/{ImageFolderUri}/{Path.GetFileName(filename)}";
+            using var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, ImagePath);
+            var response = await client.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ServiceException(response.StatusCode, $"Image Id {id} - download error.");
+            }
+
+            return await response.Content.ReadAsByteArrayAsync();
         }
     }
 }

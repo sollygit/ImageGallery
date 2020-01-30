@@ -54,5 +54,10 @@ namespace CoreImageGallery.Services
 
             return imageList;
         }
+
+        public Task<byte[]> DownloadImageAsync(string host, string id)
+        {
+            throw new ServiceException(System.Net.HttpStatusCode.NotImplemented, "Not implemented for Azure Storage");
+        }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CoreImageGallery.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
