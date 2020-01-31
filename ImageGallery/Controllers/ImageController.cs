@@ -1,6 +1,7 @@
 ﻿using CoreImageGallery.Extensions;
 using CoreImageGallery.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CoreImageGallery.Controllers
@@ -13,6 +14,14 @@ namespace CoreImageGallery.Controllers
         public ImageController(IStorageService storageService)
         {
             _storageService = storageService;
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            var images = await _storageService.GetImagesAsync();
+            var items = images.Select(o => o.ImagePath).ToList();
+            return new OkObjectResult(items);
         }
 
         [HttpGet("{id}/Download")]
