@@ -23,10 +23,8 @@ namespace CoreImageGallery
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddControllers(); // For asp.net core 3.0 MVC
             services.AddControllersWithViews();
             services.AddRazorPages();
-
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -73,7 +71,6 @@ namespace CoreImageGallery
                 scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
             }
 
-            // asp.net 3.0 fixes for MVC and routing
             app.UseRouting();
             app.UseStaticFiles();
             app.UseAuthentication();
