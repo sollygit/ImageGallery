@@ -1,27 +1,25 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Image Gallery";
-}
+@{ ViewData["Title"] = "Image Gallery"; }
 
-    <div class="centered">
-        <h1 class="modal-header">Image Gallery</h1>
-        <ul class="image-list">
-            @foreach (var image in Model.Images)
-            {
-            <li class="image-list-item">
-                <a href="@image.ImagePath" target="_blank">
-                    <div class="image-card">
-                        <img class="lazy" src="@image.ImagePath" alt="" />
-                    </div>
-                </a>
-            </li>
-            }
-        </ul>
-    </div>
+<div class="centered">
+    <h1 class="modal-header">Image Gallery</h1>
+    <ul class="image-list">
+        @foreach (var image in Model.Images)
+        {
+        <li class="image-list-item">
+            <a href="@image.ImagePath" target="_blank">
+                <div class="image-card">
+                    <img class="lazy" src="@image.ImagePath" alt="" />
+                </div>
+            </a>
+        </li>
+        }
+    </ul>
+</div>
 
 @section Scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.7/jquery.lazy.min.js" integrity="sha256-sSF4G6GdnMRF5ZKZOLYGcPvU0BTvmPMFaQ6025ZB+Nk=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.7/plugins/jquery.lazy.ajax.min.js" integrity="sha256-uQvfHo7VKZFNpuEmueDtC1/4i21aJiaG38ubIskMSF0=" crossorigin="anonymous"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.7/jquery.lazy.min.js" integrity="sha256-sSF4G6GdnMRF5ZKZOLYGcPvU0BTvmPMFaQ6025ZB+Nk=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.7/plugins/jquery.lazy.ajax.min.js" integrity="sha256-uQvfHo7VKZFNpuEmueDtC1/4i21aJiaG38ubIskMSF0=" crossorigin="anonymous"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
 }
