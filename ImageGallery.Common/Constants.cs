@@ -1,6 +1,6 @@
-﻿namespace ImageGallery.Model
+﻿namespace ImageGallery.Common
 {
-    public class Config
+    public class Constants
     {
         public const string DatabaseId = "ImageGallery";
         public const string ImagesContainer = "images";

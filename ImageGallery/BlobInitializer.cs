@@ -1,5 +1,5 @@
 ﻿using CoreImageGallery.Data;
-using ImageGallery.Model;
+using ImageGallery.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
@@ -22,8 +22,8 @@ namespace ImageGallery
             _connectionString = config["AzureStorageConnection"];
             _account = CloudStorageAccount.Parse(_connectionString);
             _client = _account.CreateCloudBlobClient();
-            _imagesContainer = _client.GetContainerReference(Config.ImagesContainer);
-            _watermarkedContainer = _client.GetContainerReference(Config.WatermarkedContainer);
+            _imagesContainer = _client.GetContainerReference(Constants.ImagesContainer);
+            _watermarkedContainer = _client.GetContainerReference(Constants.WatermarkedContainer);
 
             await InitResourcesAsync(dbContext);
         }

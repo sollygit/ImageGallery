@@ -17,7 +17,7 @@ namespace ImageGallery.AzFunctions
         {
             if (!outputBlob.CanWrite)
             {
-                log.LogError($"{Config.WatermarkedContainer} Blob has no Write access");
+                log.LogError($"{Constants.WatermarkedContainer} Blob has no Write access");
                 return;
             }
             try

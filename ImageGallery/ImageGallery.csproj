@@ -22,7 +22,7 @@
     <Folder Include="wwwroot\userImages\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ImageGallery.Model\ImageGallery.Model.csproj" />
+    <ProjectReference Include="..\ImageGallery.Common\ImageGallery.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Pages\_UploadPartial.cshtml">
